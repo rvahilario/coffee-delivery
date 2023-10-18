@@ -3,74 +3,90 @@ import styled, { useTheme } from 'styled-components'
 import coffeeImage from '../assets/home-image.svg'
 import { CircleIcon } from '../components/CircleIcon'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
+import { COFFEE_OBJECT } from '../constants/coffees'
+import { ShopCard } from '../components/ShopCard'
 
 export function Home() {
   const theme = useTheme()
-  console.log('theme', theme)
 
   return (
     <Container>
-      <div>
-        <TitleDiv>
-          <h1>Find the perfect coffee for any time of day</h1>
-          <h2>
-            With Coffee Delivery, you can receive your favorite coffee wherever
-            you are, at any time
-          </h2>
-        </TitleDiv>
+      <PresentationDiv>
+        <div>
+          <TitleDiv>
+            <h1>Find the perfect coffee for any time of day</h1>
+            <p>
+              With Coffee Delivery, you can receive your favorite coffee
+              wherever you are, at any time
+            </p>
+          </TitleDiv>
 
-        <IconsDiv>
-          <Column>
-            <span>
-              <CircleIcon
-                backgroundColor={theme['yellow-dark']}
-                icon={<ShoppingCart size={'1rem'} weight="fill" />}
-              />
-              Easy and secure purchase
-            </span>
-            <span>
-              <CircleIcon
-                backgroundColor={theme.yellow}
-                icon={<Timer size={'1rem'} weight="fill" />}
-              />
-              Fast and tracked delivery
-            </span>
-          </Column>
+          <IconsDiv>
+            <Column>
+              <span>
+                <CircleIcon
+                  backgroundColor={theme['yellow-dark']}
+                  icon={<ShoppingCart size={'1rem'} weight="fill" />}
+                />
+                Easy and secure purchase
+              </span>
+              <span>
+                <CircleIcon
+                  backgroundColor={theme.yellow}
+                  icon={<Timer size={'1rem'} weight="fill" />}
+                />
+                Fast and tracked delivery
+              </span>
+            </Column>
 
-          <Column>
-            <span>
-              <CircleIcon
-                backgroundColor={theme['base-text']}
-                icon={<Package size={'1rem'} weight="fill" />}
-              />
-              Packaging keeps the coffee intact
-            </span>
-            <span>
-              <CircleIcon
-                backgroundColor={theme.purple}
-                icon={<Coffee size={'1rem'} weight="fill" />}
-              />
-              Fresh coffee delivered to you
-            </span>
-          </Column>
-        </IconsDiv>
-      </div>
+            <Column>
+              <span>
+                <CircleIcon
+                  backgroundColor={theme['base-text']}
+                  icon={<Package size={'1rem'} weight="fill" />}
+                />
+                Packaging keeps the coffee intact
+              </span>
+              <span>
+                <CircleIcon
+                  backgroundColor={theme.purple}
+                  icon={<Coffee size={'1rem'} weight="fill" />}
+                />
+                Fresh coffee delivered to you
+              </span>
+            </Column>
+          </IconsDiv>
+        </div>
 
-      <div>
-        <img
-          src={coffeeImage}
-          alt={
-            'Image of a coffee cup on a yellow background. Around the cup, images of coffee beans, ground coffee, and roasted coffee powder.'
-          }
-        />
-      </div>
+        <div>
+          <img
+            src={coffeeImage}
+            alt={
+              'Image of a coffee cup on a yellow background. Around the cup, images of coffee beans, ground coffee, and roasted coffee powder.'
+            }
+          />
+        </div>
+      </PresentationDiv>
+
+      <ShopDiv>
+        <h2>Our coffees</h2>
+        <ShopGrid>
+          {Object.entries(COFFEE_OBJECT).map(([key, coffee]) => (
+            <ShopCard key={key} coffee={coffee} />
+          ))}
+        </ShopGrid>
+      </ShopDiv>
     </Container>
   )
 }
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+`
+
+const PresentationDiv = styled.div`
+  display: flex;
   padding: 5.75rem 0;
   gap: 3.5rem;
 
@@ -91,7 +107,7 @@ const TitleDiv = styled.div`
     font-weight: 800;
     margin-bottom: 1rem;
   }
-  > h2 {
+  > p {
     color: ${({ theme }) => theme['base-subtitle']};
     font-size: 1.25rem;
     font-weight: 400;
@@ -116,4 +132,19 @@ const Column = styled.div`
     color: ${({ theme }) => theme['base-text']};
     font-weight: 400;
   }
+`
+
+const ShopDiv = styled.div`
+  > h2 {
+    color: ${({ theme }) => theme['base-subtitle']};
+    font-family: 'Baloo 2';
+    font-size: 2rem;
+    font-weight: 800;
+  }
+`
+
+const ShopGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 2rem;
 `
