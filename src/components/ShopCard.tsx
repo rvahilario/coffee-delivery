@@ -19,29 +19,32 @@ export function ShopCard({ coffee }: ShopCardProps) {
 
   return (
     <Container>
-      <InfoDiv>
-        <img src={imageSrc} alt="" />
-        <TagDiv>
-          {tags.map((tag) => (
-            <TagSpan key={tag}>{tag}</TagSpan>
-          ))}
-        </TagDiv>
-        <h3>{name}</h3>
-        <p>{description}</p>
-      </InfoDiv>
-      <BuyDiv>
-        <p>
-          $ <span>{formatCurrencyValue(price)}</span>
-        </p>
+      <img src={imageSrc} alt="" />
 
-        <div>
-          <InputNumberSpinner steps={1} onChange={handleInputChange} />
-          <Button
-            variant={'shopping-cart'}
-            onClick={() => console.log('click')}
-          />
-        </div>
-      </BuyDiv>
+      <div>
+        <InfoDiv>
+          <TagDiv>
+            {tags.map((tag) => (
+              <TagSpan key={tag}>{tag}</TagSpan>
+            ))}
+          </TagDiv>
+          <h3>{name}</h3>
+          <p>{description}</p>
+        </InfoDiv>
+        <BuyDiv>
+          <p>
+            $ <span>{formatCurrencyValue(price)}</span>
+          </p>
+
+          <div>
+            <InputNumberSpinner steps={1} onChange={handleInputChange} />
+            <Button
+              variant={'shopping-cart'}
+              onClick={() => console.log('click')}
+            />
+          </div>
+        </BuyDiv>
+      </div>
     </Container>
   )
 }
@@ -56,6 +59,20 @@ const Container = styled.div`
   background: ${({ theme }) => theme['base-card']};
   height: 19.375rem;
   width: 16rem;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 13.125rem;
+  }
+
+  > img {
+    height: 7.5rem;
+    width: 7.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: -1.25rem;
+  }
 `
 
 const InfoDiv = styled.div`
@@ -63,12 +80,7 @@ const InfoDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  > img {
-    height: 7.5rem;
-    width: 7.5rem;
-    margin-bottom: 0.75rem;
-  }
+  margin-bottom: 0.5rem;
 
   > h3 {
     color: ${({ theme }) => theme['base-subtitle']};

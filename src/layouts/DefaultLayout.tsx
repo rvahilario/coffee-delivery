@@ -14,7 +14,6 @@ export function DefaultLayout() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 90rem;
-  padding: 0 10rem;
+  max-width: 70rem;
   margin: 0 auto;
 `

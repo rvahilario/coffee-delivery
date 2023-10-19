@@ -135,6 +135,10 @@ const Column = styled.div`
 `
 
 const ShopDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3.375rem;
+
   > h2 {
     color: ${({ theme }) => theme['base-subtitle']};
     font-family: 'Baloo 2';
