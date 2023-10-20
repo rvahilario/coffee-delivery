@@ -7,14 +7,15 @@ import { NavLink } from 'react-router-dom'
 export function Header() {
   return (
     <Container>
-      <Logo src={logo} />
+      <NavLink to={'/'} className="checkout">
+        <Logo src={logo} />
+      </NavLink>
       <StyledNav>
         <div className="location">
           <MapPin size={'1.375rem'} weight="fill" />
           Rio de Janeiro, RJ
         </div>
-        <NavLink to={'/'} className="checkout">
-          {/** TODO: change route */}
+        <NavLink to={'/checkout'} className="checkout">
           <ShoppingCart size={'1.375rem'} weight="fill" />
         </NavLink>
       </StyledNav>
