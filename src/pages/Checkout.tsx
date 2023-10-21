@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components'
-import { TextField } from '@mui/material'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
+import { CustomInput } from '../components/CustomInput'
 
 export function Checkout() {
   const theme = useTheme()
@@ -18,19 +18,19 @@ export function Checkout() {
             </div>
           </FormTitle>
           <RowDiv>
-            <StyledTextField label="CEP" variant="outlined" />
+            <CustomInput placeholder="CEP" />
           </RowDiv>
           <RowDiv>
-            <TextField label="Rua" variant="outlined" />
+            <input placeholder="Rua" />
           </RowDiv>
           <RowDiv>
-            <TextField label="Número" variant="outlined" />
-            <TextField label="Complemento" variant="outlined" />
+            <input placeholder="Número" />
+            <input placeholder="Complemento" />
           </RowDiv>
           <RowDiv>
-            <TextField label="Bairro" variant="outlined" />
-            <TextField label="Cidade" variant="outlined" />
-            <TextField label="UF" variant="outlined" />
+            <input placeholder="Bairro" />
+            <input placeholder="Cidade" />
+            <input placeholder="UF" />
           </RowDiv>
         </FormDiv>
 
@@ -105,17 +105,5 @@ const FormTitle = styled(RowDiv)`
       font-size: 0.875rem;
       font-weight: 400;
     }
-  }
-`
-
-const StyledTextField = styled(TextField)`
-  fieldset {
-    border-radius: 4px;
-    border: 1px solid ${({ theme }) => theme['base-input']};
-    background: ${({ theme }) => theme['base-input']};
-  }
-
-  &:focus {
-    border: 1px solid red;
   }
 `
