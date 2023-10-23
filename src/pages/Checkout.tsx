@@ -17,21 +17,23 @@ export function Checkout() {
               <p>Informe o endereço onde deseja receber seu pedido</p>
             </div>
           </FormTitle>
-          <RowDiv>
-            <CustomInput placeholder="CEP" />
-          </RowDiv>
-          <RowDiv>
-            <input placeholder="Rua" />
-          </RowDiv>
-          <RowDiv>
-            <input placeholder="Número" />
-            <input placeholder="Complemento" />
-          </RowDiv>
-          <RowDiv>
-            <input placeholder="Bairro" />
-            <input placeholder="Cidade" />
-            <input placeholder="UF" />
-          </RowDiv>
+          <ColumnDiv>
+            <RowDiv>
+              <CustomInput placeholder="CEP" width={'12.5rem'} />
+            </RowDiv>
+            <RowDiv>
+              <CustomInput placeholder="Rua" />
+            </RowDiv>
+            <RowDiv>
+              <CustomInput placeholder="Número" width={'12.5rem'} />
+              <CustomInput placeholder="Complemento" isOptional />
+            </RowDiv>
+            <RowDiv>
+              <CustomInput placeholder="Bairro" width={'12.5rem'} />
+              <CustomInput placeholder="Cidade" />
+              <CustomInput placeholder="UF" width={'3.75rem'} />
+            </RowDiv>
+          </ColumnDiv>
         </FormDiv>
 
         <FormDiv>
@@ -86,6 +88,15 @@ const FormDiv = styled.div`
 
 const RowDiv = styled.div`
   display: flex;
+  gap: 0.75rem;
+  width: 100%;
+`
+
+const ColumnDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 `
 
 const FormTitle = styled(RowDiv)`

@@ -4,50 +4,67 @@ import styled, { useTheme } from 'styled-components'
 
 type CustomInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isOptional?: boolean
+  width?: string
 }
 
 export function CustomInput({
   isOptional = false,
+  width,
   ...props
 }: CustomInputProps) {
-  const theme = useTheme()
+  const customWidth = width || '100%'
 
   return (
-    <InputGroup>
-      <StyledInput as="input" {...props} size={'md'} />
+    <InputGroup
+      css={`
+        width: ${customWidth};
+      `}
+    >
+      <StyledInput
+        isOptional={isOptional}
+        width={customWidth}
+        as="input"
+        {...props}
+        size={'md'}
+      />
 
       {isOptional && (
-        <InputRightElement
-          pointerEvents="none"
-          color={theme['base-label']}
-          fontSize="1rem"
-          mr={8}
-        >
+        <StyledInputRightElement pointerEvents="none">
           Optional
-        </InputRightElement>
+        </StyledInputRightElement>
       )}
     </InputGroup>
   )
 }
 
-const StyledInput = styled(Input)`
-  background: ${({ theme }) => theme['base-input']};
-  color: ${({ theme }) => theme['base-text']};
+const StyledInput = styled(Input)<{ isOptional?: boolean; width?: string }>`
+  height: 2.5rem;
+  width: ${({ width }) => width};
+  padding: 0.75rem;
+  padding-right: calc(
+    ${({ isOptional }) => (isOptional ? '3.625rem + 0.75rem' : '0.75rem')}
+  );
   border: 1px solid transparent;
+  outline: none;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme['base-text']};
+  background: ${({ theme }) => theme['base-input']};
+
   &::placeholder {
     color: ${({ theme }) => theme['base-label']};
   }
   &:focus {
     border: 1px solid ${({ theme }) => theme.yellow};
   }
-  outline: none;
-  height: 2.5rem;
-  width: 100%;
-  border-radius: 0.25rem;
-  // bg={theme['base-input']}
-  // color={theme['base-text']}
-  // _placeholder={{
-  //   color: theme['base-label'],
-  // }}
-  // focusBorderColor={theme.yellow}
+`
+
+const StyledInputRightElement = styled(InputRightElement)`
+  height: 100%;
+  width: 3.625rem;
+  font-style: italic;
+  font-size: 0.75rem;
+  padding: 0.75rem;
+  padding-left: 0;
+  color: ${({ theme }) => theme['base-label']};
 `
