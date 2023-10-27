@@ -12,12 +12,14 @@ function useInterval(callback: () => void, delay: number | null) {
 }
 
 type InputNumberProps = {
+  id: string
   steps: number
   onChange: (value: number) => void
   min?: number
 }
 
 export function InputNumberSpinner({
+  id,
   steps,
   onChange,
   min = 0,
@@ -82,6 +84,7 @@ export function InputNumberSpinner({
         <Minus size={'0.875rem'} weight="bold" />
       </button>
       <input
+        id={id}
         type="number"
         step={steps}
         value={value}

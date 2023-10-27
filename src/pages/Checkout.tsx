@@ -20,19 +20,23 @@ export function Checkout() {
           </FormTitle>
           <ColumnDiv>
             <RowDiv>
-              <CustomInput placeholder="CEP" width={'12.5rem'} />
+              <CustomInput id="CEP" placeholder="CEP" width={'12.5rem'} />
             </RowDiv>
             <RowDiv>
-              <CustomInput placeholder="Rua" />
+              <CustomInput id="Rua" placeholder="Rua" />
             </RowDiv>
             <RowDiv>
-              <CustomInput placeholder="Número" width={'12.5rem'} />
-              <CustomInput placeholder="Complemento" isOptional />
+              <CustomInput id="Número" placeholder="Número" width={'12.5rem'} />
+              <CustomInput
+                id="Complemento"
+                placeholder="Complemento"
+                isOptional
+              />
             </RowDiv>
             <RowDiv>
-              <CustomInput placeholder="Bairro" width={'12.5rem'} />
-              <CustomInput placeholder="Cidade" />
-              <CustomInput placeholder="UF" width={'3.75rem'} />
+              <CustomInput id="Bairro" placeholder="Bairro" width={'12.5rem'} />
+              <CustomInput id="Cidade" placeholder="Cidade" />
+              <CustomInput id="UF" placeholder="UF" width={'3.75rem'} />
             </RowDiv>
           </ColumnDiv>
         </FormDiv>

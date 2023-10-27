@@ -5,10 +5,11 @@ import { InputNumberSpinner } from './InputNumberSpinner'
 import { Button } from './Button'
 
 interface ShopCardProps {
+  id: string
   coffee: CoffeeType
 }
 
-export function ShopCard({ coffee }: ShopCardProps) {
+export function ShopCard({ id, coffee }: ShopCardProps) {
   const { name, description, price, tags, imageSrc } = coffee
   const [quantity, setQuantity] = useState(0)
 
@@ -37,7 +38,11 @@ export function ShopCard({ coffee }: ShopCardProps) {
           </p>
 
           <div>
-            <InputNumberSpinner steps={1} onChange={handleInputChange} />
+            <InputNumberSpinner
+              id={id}
+              steps={1}
+              onChange={handleInputChange}
+            />
             <Button
               variant={'shopping-cart'}
               onClick={() => console.log('click')}
