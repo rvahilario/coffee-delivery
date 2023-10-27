@@ -1,6 +1,7 @@
 import styled, { useTheme } from 'styled-components'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { CustomInput } from '../components/CustomInput'
+import { PaymentOptions } from '../components/PaymentOptions'
 
 export function Checkout() {
   const theme = useTheme()
@@ -46,6 +47,7 @@ export function Checkout() {
               </p>
             </div>
           </FormTitle>
+          <PaymentOptions />
         </FormDiv>
       </SubContainer>
       <SubContainer>
@@ -84,6 +86,10 @@ const FormDiv = styled.div`
   padding: 2.5rem;
   margin-bottom: 0.75rem;
   border-radius: 0.375rem;
+
+  .chakra-stack {
+    width: 100%;
+  }
 `
 
 const RowDiv = styled.div`
