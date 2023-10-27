@@ -2,6 +2,11 @@ import styled, { useTheme } from 'styled-components'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { CustomInput } from '../components/CustomInput'
 import { PaymentOptions } from '../components/PaymentOptions'
+import { Button } from '../components/Button'
+import { ShopCard } from '../components/ShopCard'
+import { COFFEE_OBJECT } from '../constants/coffees'
+
+const CHOSEN_COFFEE = ['traditionalEspresso', 'latte']
 
 export function Checkout() {
   const theme = useTheme()
@@ -54,8 +59,26 @@ export function Checkout() {
           <PaymentOptions />
         </FormDiv>
       </SubContainer>
+
       <SubContainer>
         <h2>Cafés selecionados</h2>
+        <FormDiv>
+          {CHOSEN_COFFEE.map((key) => {
+            const coffee = COFFEE_OBJECT[key]
+
+            return (
+              <ShopCard
+                key={key}
+                id={key}
+                coffee={coffee}
+                variant="horizontal"
+              />
+            )
+          })}
+          <Button variant="primary" onClick={() => console.log('clicked')}>
+            Confirm order
+          </Button>
+        </FormDiv>
       </SubContainer>
     </Container>
   )
