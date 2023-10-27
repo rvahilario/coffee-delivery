@@ -7,11 +7,11 @@ type CircleIconProps = {
 }
 
 export function CircleIcon({ icon, backgroundColor }: CircleIconProps) {
-  return <Container backgroundColor={backgroundColor}>{icon}</Container>
+  return <Container $backgroundColor={backgroundColor}>{icon}</Container>
 }
 
-const Container = styled.div<{ backgroundColor: string }>`
-  background: ${({ backgroundColor }) => backgroundColor};
+const Container = styled.div<{ $backgroundColor: string }>`
+  background: ${(props) => props.$backgroundColor};
   color: ${({ theme }) => theme.background};
   height: 2rem;
   width: 2rem;

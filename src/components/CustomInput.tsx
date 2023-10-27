@@ -1,18 +1,19 @@
-import { InputHTMLAttributes } from 'react'
-import { InputGroup, InputRightElement, Input } from '@chakra-ui/react'
-import styled, { useTheme } from 'styled-components'
+import {
+  InputGroup,
+  InputRightElement,
+  Input,
+  InputProps,
+} from '@chakra-ui/react'
+import styled from 'styled-components'
 
-type CustomInputProps = InputHTMLAttributes<HTMLInputElement> & {
+type CustomInputProps = InputProps & {
   isOptional?: boolean
   width?: string
 }
 
-export function CustomInput({
-  isOptional = false,
-  width,
-  ...props
-}: CustomInputProps) {
+export function CustomInput({ isOptional, width, ...props }: CustomInputProps) {
   const customWidth = width || '100%'
+  const isOptionalDefault = isOptional || false
 
   return (
     <InputGroup
@@ -21,14 +22,14 @@ export function CustomInput({
       `}
     >
       <StyledInput
-        isOptional={isOptional}
+        $isOptional={isOptionalDefault}
         width={customWidth}
         as="input"
         {...props}
         size={'md'}
       />
 
-      {isOptional && (
+      {isOptionalDefault && (
         <StyledInputRightElement pointerEvents="none">
           Optional
         </StyledInputRightElement>
@@ -37,12 +38,12 @@ export function CustomInput({
   )
 }
 
-const StyledInput = styled(Input)<{ isOptional?: boolean; width?: string }>`
+const StyledInput = styled(Input)<{ $isOptional: boolean; width: string }>`
   height: 2.5rem;
   width: ${({ width }) => width};
   padding: 0.75rem;
   padding-right: calc(
-    ${({ isOptional }) => (isOptional ? '3.625rem + 0.75rem' : '0.75rem')}
+    ${({ $isOptional }) => ($isOptional ? '3.625rem + 0.75rem' : '0.75rem')}
   );
   border: 1px solid transparent;
   outline: none;

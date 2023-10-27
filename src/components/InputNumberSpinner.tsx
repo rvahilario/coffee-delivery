@@ -105,7 +105,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 4.5rem;
-  height: 2.375rem;
   padding: 0.5rem;
   gap: 0.25rem;
 
