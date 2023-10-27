@@ -4,7 +4,7 @@ import coffeeImage from '../assets/home-image.svg'
 import { CircleIcon } from '../components/CircleIcon'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
 import { COFFEE_OBJECT } from '../constants/coffees'
-import { ShopCard } from '../components/ShopCard'
+import { CoffeeCard } from '../components/CoffeeCard'
 
 export function Home() {
   const theme = useTheme()
@@ -72,7 +72,7 @@ export function Home() {
         <h2>Our coffees</h2>
         <ShopGrid>
           {Object.entries(COFFEE_OBJECT).map(([key, coffee]) => (
-            <ShopCard key={key} id={key} coffee={coffee} />
+            <CoffeeCard key={key} id={key} coffee={coffee} />
           ))}
         </ShopGrid>
       </ShopDiv>

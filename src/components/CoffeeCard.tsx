@@ -4,13 +4,17 @@ import { formatCurrencyValue } from '../utils'
 import { InputNumberSpinner } from './InputNumberSpinner'
 import { Button } from './Button'
 
-interface ShopCardProps {
+interface CoffeeCardProps {
   id: string
   coffee: CoffeeType
   variant?: 'vertical' | 'horizontal'
 }
 
-export function ShopCard({ id, coffee, variant = 'vertical' }: ShopCardProps) {
+export function CoffeeCard({
+  id,
+  coffee,
+  variant = 'vertical',
+}: CoffeeCardProps) {
   const { name, description, price, tags, imageSrc } = coffee
   const [quantity, setQuantity] = useState(0)
   const isVertical = variant === 'vertical'
@@ -80,14 +84,6 @@ export function ShopCard({ id, coffee, variant = 'vertical' }: ShopCardProps) {
   )
 }
 
-const CardFooter = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-`
-
 const CardContainer = styled.div`
   display: flex;
   background: ${({ theme }) => theme['base-card']};
@@ -129,6 +125,14 @@ const CardContent = styled.div`
     text-align: center;
     font-size: 0.875rem;
   }
+`
+
+const CardFooter = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
 `
 
 const Tags = styled.div<{ $variant: string }>`
