@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { CustomInput } from '../components/CustomInput'
@@ -5,12 +6,29 @@ import { PaymentOptions } from '../components/PaymentOptions'
 import { Button } from '../components/Button'
 import { CoffeeCard } from '../components/CoffeeCard'
 import { COFFEE_OBJECT } from '../constants/coffees'
-import { formatCurrencyValue } from '../utils'
+import { calculateTotal, formatCurrencyValue } from '../utils'
 
-const CHOSEN_COFFEE = ['traditionalEspresso', 'latte']
+const mockCheckoutData: CheckoutData = {
+  deliveryAddress: {
+    ZIP: '12345',
+    street: '123 Main St',
+    number: '1A',
+    complement: 'Apt 101',
+    neighborhood: 'Coffeeville',
+    city: 'Caffeine City',
+    state: 'CA',
+  },
+  paymentType: 'credit',
+  selectedCoffees: [
+    { coffeeKey: 'traditionalEspresso', quantity: 2 },
+    { coffeeKey: 'icedEspresso', quantity: 1 },
+    { coffeeKey: 'hotChocolate', quantity: 3 },
+  ],
+}
 
 export function Checkout() {
   const theme = useTheme()
+  const { totalItems, deliveryTax, total } = calculateTotal(mockCheckoutData)
 
   return (
     <Container>
@@ -69,31 +87,31 @@ export function Checkout() {
       <SubContainer>
         <h2>Selected Coffees</h2>
         <FormDiv className="total-form-div">
-          {CHOSEN_COFFEE.map((key) => {
-            const coffee = COFFEE_OBJECT[key]
+          {mockCheckoutData.selectedCoffees.map(({ coffeeKey, quantity }) => {
+            const coffee = COFFEE_OBJECT[coffeeKey]
 
             return (
-              <>
+              <Fragment key={coffeeKey}>
                 <CoffeeCard
-                  key={key}
-                  id={key}
+                  id={coffeeKey}
                   coffee={coffee}
+                  itemQuantity={quantity}
                   variant="horizontal"
                 />
                 <hr />
-              </>
+              </Fragment>
             )
           })}
           <TotalDiv>
             <p>
-              Total items<span>${formatCurrencyValue(29.7)}</span>
+              Total items<span>${formatCurrencyValue(totalItems)}</span>
             </p>
             <p>
-              Delivery tax<span>${formatCurrencyValue(3.5)}</span>
+              Delivery tax<span>${formatCurrencyValue(deliveryTax)}</span>
             </p>
             <p className="-total">
-              <h4>Total</h4>
-              <span>${formatCurrencyValue(33.2)}</span>
+              Total
+              <span>${formatCurrencyValue(total)}</span>
             </p>
           </TotalDiv>
           <Button variant="primary" onClick={() => console.log('clicked')}>
@@ -139,11 +157,13 @@ const FormDiv = styled.div`
   > button {
     width: 100%;
   }
-
+  > hr {
+    width: 100%;
+    color: ${({ theme }) => theme['base-button']};
+  }
   .chakra-stack {
     width: 100%;
   }
-
   &.total-form-div {
     border-radius: 0.375rem 2.75rem;
   }
@@ -188,7 +208,7 @@ const TotalDiv = styled.div`
   width: 100%;
   gap: 0.75rem;
 
-  > P {
+  > p {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -196,13 +216,11 @@ const TotalDiv = styled.div`
     > span {
       font-size: 1rem;
     }
-    &.-total {
-      > h4,
-      > span {
-        color: ${({ theme }) => theme['base-subtitle']};
-        font-size: 1.25rem;
-        font-weight: 700;
-      }
+    &.-total,
+    &.-total > span {
+      color: ${({ theme }) => theme['base-subtitle']};
+      font-size: 1.25rem;
+      font-weight: 700;
     }
   }
 `
