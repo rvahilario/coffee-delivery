@@ -5,6 +5,7 @@ import { PaymentOptions } from '../components/PaymentOptions'
 import { Button } from '../components/Button'
 import { CoffeeCard } from '../components/CoffeeCard'
 import { COFFEE_OBJECT } from '../constants/coffees'
+import { formatCurrencyValue } from '../utils'
 
 const CHOSEN_COFFEE = ['traditionalEspresso', 'latte']
 
@@ -14,34 +15,38 @@ export function Checkout() {
   return (
     <Container>
       <SubContainer>
-        <h2>Complete seu pedido</h2>
+        <h2>Complete your order</h2>
         <FormDiv>
           <FormTitle>
             <MapPinLine size={'1.375rem'} color={theme['yellow-dark']} />
             <div>
-              <h3>Endereço de Entrega</h3>
-              <p>Informe o endereço onde deseja receber seu pedido</p>
+              <h3>Delivery Address</h3>
+              <p>Provide the address where you want to receive your order</p>
             </div>
           </FormTitle>
           <ColumnDiv>
             <RowDiv>
-              <CustomInput id="CEP" placeholder="CEP" width={'12.5rem'} />
+              <CustomInput id="ZIP" placeholder="ZIP Code" width={'12.5rem'} />
             </RowDiv>
             <RowDiv>
-              <CustomInput id="Rua" placeholder="Rua" />
+              <CustomInput id="Street" placeholder="Street" />
             </RowDiv>
             <RowDiv>
-              <CustomInput id="Número" placeholder="Número" width={'12.5rem'} />
+              <CustomInput id="Number" placeholder="Number" width={'12.5rem'} />
               <CustomInput
-                id="Complemento"
-                placeholder="Complemento"
+                id="Complement"
+                placeholder="Complement"
                 isOptional
               />
             </RowDiv>
             <RowDiv>
-              <CustomInput id="Bairro" placeholder="Bairro" width={'12.5rem'} />
-              <CustomInput id="Cidade" placeholder="Cidade" />
-              <CustomInput id="UF" placeholder="UF" width={'3.75rem'} />
+              <CustomInput
+                id="Neighborhood"
+                placeholder="Neighborhood"
+                width={'12.5rem'}
+              />
+              <CustomInput id="City" placeholder="City" />
+              <CustomInput id="State" placeholder="State" width={'3.75rem'} />
             </RowDiv>
           </ColumnDiv>
         </FormDiv>
@@ -50,9 +55,10 @@ export function Checkout() {
           <FormTitle>
             <CurrencyDollar size={'1.375rem'} color={theme.purple} />
             <div>
-              <h3>Pagamento</h3>
+              <h3>Payment</h3>
               <p>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+                Payment is made upon delivery. Choose the payment method you
+                prefer
               </p>
             </div>
           </FormTitle>
@@ -61,20 +67,35 @@ export function Checkout() {
       </SubContainer>
 
       <SubContainer>
-        <h2>Cafés selecionados</h2>
-        <FormDiv>
+        <h2>Selected Coffees</h2>
+        <FormDiv className="total-form-div">
           {CHOSEN_COFFEE.map((key) => {
             const coffee = COFFEE_OBJECT[key]
 
             return (
-              <CoffeeCard
-                key={key}
-                id={key}
-                coffee={coffee}
-                variant="horizontal"
-              />
+              <>
+                <CoffeeCard
+                  key={key}
+                  id={key}
+                  coffee={coffee}
+                  variant="horizontal"
+                />
+                <hr />
+              </>
             )
           })}
+          <TotalDiv>
+            <p>
+              Total items<span>${formatCurrencyValue(29.7)}</span>
+            </p>
+            <p>
+              Delivery tax<span>${formatCurrencyValue(3.5)}</span>
+            </p>
+            <p className="-total">
+              <h4>Total</h4>
+              <span>${formatCurrencyValue(33.2)}</span>
+            </p>
+          </TotalDiv>
           <Button variant="primary" onClick={() => console.log('clicked')}>
             Confirm order
           </Button>
@@ -113,9 +134,18 @@ const FormDiv = styled.div`
   padding: 2.5rem;
   margin-bottom: 0.75rem;
   border-radius: 0.375rem;
+  gap: 1.5rem;
+
+  > button {
+    width: 100%;
+  }
 
   .chakra-stack {
     width: 100%;
+  }
+
+  &.total-form-div {
+    border-radius: 0.375rem 2.75rem;
   }
 `
 
@@ -133,7 +163,7 @@ const ColumnDiv = styled.div`
 `
 
 const FormTitle = styled(RowDiv)`
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 
   > div {
     display: flex;
@@ -148,6 +178,31 @@ const FormTitle = styled(RowDiv)`
       color: ${({ theme }) => theme['base-text']};
       font-size: 0.875rem;
       font-weight: 400;
+    }
+  }
+`
+
+const TotalDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.75rem;
+
+  > P {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    > span {
+      font-size: 1rem;
+    }
+    &.-total {
+      > h4,
+      > span {
+        color: ${({ theme }) => theme['base-subtitle']};
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
     }
   }
 `
