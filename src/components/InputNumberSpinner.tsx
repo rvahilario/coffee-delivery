@@ -64,6 +64,14 @@ export function InputNumberSpinner({
     })
   }
 
+  function handleClick(
+    event: React.MouseEvent<HTMLButtonElement>,
+    direction: 'up' | 'down',
+  ) {
+    event.preventDefault()
+    handleButtonChange(direction)
+  }
+
   useEffect(() => {
     onChange && onChange(value)
   }, [value])
@@ -76,7 +84,9 @@ export function InputNumberSpinner({
   return (
     <Container>
       <button
-        onClick={() => handleButtonChange('down')}
+        onClick={(event) => {
+          handleClick(event, 'down')
+        }}
         onMouseDown={() => setMouseDownDirection('down')}
         onMouseOut={() => setMouseDownDirection(undefined)}
         onMouseUp={() => setMouseDownDirection(undefined)}
@@ -92,7 +102,9 @@ export function InputNumberSpinner({
         min={0}
       />
       <button
-        onClick={() => handleButtonChange('up')}
+        onClick={(event) => {
+          handleClick(event, 'up')
+        }}
         onMouseDown={() => setMouseDownDirection('up')}
         onMouseUp={() => setMouseDownDirection(undefined)}
         onMouseOut={() => setMouseDownDirection(undefined)}

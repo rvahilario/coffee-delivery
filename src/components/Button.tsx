@@ -5,7 +5,7 @@ import { ShoppingCart, Trash } from '@phosphor-icons/react'
 interface ButtonProps {
   variant?: 'primary' | 'remove' | 'shopping-cart'
   children?: ReactNode
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void
+  onClick: () => void
 }
 
 export const Button = ({
@@ -13,10 +13,15 @@ export const Button = ({
   children,
   onClick,
 }: ButtonProps) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    onClick()
+  }
+
   switch (variant) {
     case 'remove':
       return (
-        <RemoveButton onClick={onClick}>
+        <RemoveButton onClick={handleClick}>
           <Trash size={'1rem'} />
           <span>Remove</span>
         </RemoveButton>
@@ -24,13 +29,13 @@ export const Button = ({
 
     case 'shopping-cart':
       return (
-        <ShoppingCartButton onClick={onClick}>
+        <ShoppingCartButton onClick={handleClick}>
           <ShoppingCart size={'1.375rem'} weight="fill" />
         </ShoppingCartButton>
       )
 
     default:
-      return <PrimaryButton onClick={onClick}>{children}</PrimaryButton>
+      return <PrimaryButton onClick={handleClick}>{children}</PrimaryButton>
   }
 }
 
