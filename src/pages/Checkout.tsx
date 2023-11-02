@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { CustomInput } from '../components/CustomInput'
@@ -8,8 +8,8 @@ import { CoffeeCard } from '../components/CoffeeCard'
 import { COFFEE_OBJECT } from '../constants/coffees'
 import { calculateTotal, formatCurrencyValue } from '../utils'
 
-const mockCheckoutData: CheckoutData = {
-  deliveryAddress: {
+const mockCheckoutData: CheckoutDataType = {
+  completeAddress: {
     ZIP: '12345',
     street: '123 Main St',
     number: '1A',
@@ -19,16 +19,68 @@ const mockCheckoutData: CheckoutData = {
     state: 'CA',
   },
   paymentType: 'credit',
-  selectedCoffees: [
-    { coffeeKey: 'traditionalEspresso', quantity: 2 },
-    { coffeeKey: 'icedEspresso', quantity: 1 },
-    { coffeeKey: 'hotChocolate', quantity: 3 },
-  ],
+  selectedCoffees: {
+    traditionalEspresso: 2,
+    icedEspresso: 1,
+    hotChocolate: 3,
+  },
 }
+
+const DEFAULT_ADDRESS: AddressType = {
+  ZIP: '',
+  street: '',
+  number: '',
+  complement: '',
+  neighborhood: '',
+  city: '',
+  state: '',
+}
+
+const DEFAULT_PAYMENT_TYPE: PaymentType = 'credit'
+
+const DEFAULT_SELECTED_COFFEES: SelectedCoffeesType =
+  mockCheckoutData.selectedCoffees
 
 export function Checkout() {
   const theme = useTheme()
-  const { totalItems, deliveryTax, total } = calculateTotal(mockCheckoutData)
+  const [completeAddress, setCompleteAddress] = useState(DEFAULT_ADDRESS)
+  const [paymentType, setPaymentType] = useState(DEFAULT_PAYMENT_TYPE)
+  const [selectedCoffees, setSelectedCoffees] = useState(
+    DEFAULT_SELECTED_COFFEES,
+  )
+  const { totalItems, deliveryTax, total } = calculateTotal(selectedCoffees)
+
+  function handleAddressDataChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { id, value } = event.target
+
+    setCompleteAddress((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }))
+  }
+
+  function handlePaymentTypeChange(paymentType: PaymentType) {
+    setPaymentType(paymentType)
+  }
+
+  function handleCoffeeQuantityChange(coffeeKey: string, quantity: number) {
+    setSelectedCoffees((prevState) => ({
+      ...prevState,
+      [coffeeKey]: quantity,
+    }))
+  }
+
+  function onConfirmOrder() {
+    const checkoutData: CheckoutDataType = {
+      completeAddress,
+      paymentType,
+      selectedCoffees,
+    }
+    console.log('Sending order data: ', checkoutData)
+
+    // TODO: send checkoutData to backend
+    // TODO: redirect to order confirmation page
+  }
 
   return (
     <Container>
@@ -44,27 +96,52 @@ export function Checkout() {
           </FormTitle>
           <ColumnDiv>
             <RowDiv>
-              <CustomInput id="ZIP" placeholder="ZIP Code" width={'12.5rem'} />
-            </RowDiv>
-            <RowDiv>
-              <CustomInput id="Street" placeholder="Street" />
-            </RowDiv>
-            <RowDiv>
-              <CustomInput id="Number" placeholder="Number" width={'12.5rem'} />
               <CustomInput
-                id="Complement"
+                id="ZIP"
+                placeholder="ZIP Code"
+                width={'12.5rem'}
+                onChange={handleAddressDataChange}
+              />
+            </RowDiv>
+            <RowDiv>
+              <CustomInput
+                id="street"
+                placeholder="Street"
+                onChange={handleAddressDataChange}
+              />
+            </RowDiv>
+            <RowDiv>
+              <CustomInput
+                id="number"
+                placeholder="Number"
+                width={'12.5rem'}
+                onChange={handleAddressDataChange}
+              />
+              <CustomInput
+                id="complement"
                 placeholder="Complement"
                 isOptional
+                onChange={handleAddressDataChange}
               />
             </RowDiv>
             <RowDiv>
               <CustomInput
-                id="Neighborhood"
+                id="neighborhood"
                 placeholder="Neighborhood"
                 width={'12.5rem'}
+                onChange={handleAddressDataChange}
               />
-              <CustomInput id="City" placeholder="City" />
-              <CustomInput id="State" placeholder="State" width={'3.75rem'} />
+              <CustomInput
+                id="city"
+                placeholder="City"
+                onChange={handleAddressDataChange}
+              />
+              <CustomInput
+                id="state"
+                placeholder="State"
+                width={'3.75rem'}
+                onChange={handleAddressDataChange}
+              />
             </RowDiv>
           </ColumnDiv>
         </FormDiv>
@@ -80,22 +157,23 @@ export function Checkout() {
               </p>
             </div>
           </FormTitle>
-          <PaymentOptions />
+          <PaymentOptions onChange={handlePaymentTypeChange} />
         </FormDiv>
       </SubContainer>
 
       <SubContainer>
         <h2>Selected Coffees</h2>
         <FormDiv className="total-form-div">
-          {mockCheckoutData.selectedCoffees.map(({ coffeeKey, quantity }) => {
+          {Object.entries(selectedCoffees).map(([coffeeKey, quantity]) => {
             const coffee = COFFEE_OBJECT[coffeeKey]
 
             return (
               <Fragment key={coffeeKey}>
                 <CoffeeCard
-                  id={coffeeKey}
+                  coffeeKey={coffeeKey}
                   coffee={coffee}
-                  itemQuantity={quantity}
+                  quantity={quantity}
+                  onChange={handleCoffeeQuantityChange}
                   variant="horizontal"
                 />
                 <hr />
@@ -114,7 +192,7 @@ export function Checkout() {
               <span>${formatCurrencyValue(total)}</span>
             </p>
           </TotalDiv>
-          <Button variant="primary" onClick={() => console.log('clicked')}>
+          <Button variant="primary" onClick={onConfirmOrder}>
             Confirm order
           </Button>
         </FormDiv>
