@@ -1,4 +1,4 @@
-interface Address {
+type AddressType = {
   ZIP: string
   street: string
   number: string
@@ -10,13 +10,12 @@ interface Address {
 
 type PaymentType = 'credit' | 'debit' | 'cash'
 
-interface SelectedCoffee {
-  coffeeKey: string
-  quantity: number
+type SelectedCoffeesType = {
+  [coffeeKey: string]: number
 }
 
-interface CheckoutData {
-  deliveryAddress: Address
+type CheckoutDataType = {
+  completeAddress: AddressType
   paymentType: PaymentType
-  selectedCoffees: SelectedCoffee[]
+  selectedCoffees: SelectedCoffeesType
 }
