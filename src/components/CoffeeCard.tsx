@@ -5,23 +5,25 @@ import { InputNumberSpinner } from './InputNumberSpinner'
 import { Button } from './Button'
 
 interface CoffeeCardProps {
-  id: string
+  coffeeKey: string
   coffee: CoffeeType
   variant?: 'vertical' | 'horizontal'
+  quantity: number
+  onChange: (coffeeKey: string, quantity: number) => void
 }
 
 export function CoffeeCard({
-  id,
+  coffeeKey,
   coffee,
   variant = 'vertical',
+  onChange,
+  quantity,
 }: CoffeeCardProps) {
   const { name, description, price, tags, imageSrc } = coffee
-  const [quantity, setQuantity] = useState(0)
   const isVertical = variant === 'vertical'
 
   function handleInputChange(value: number) {
-    setQuantity(value)
-    console.log('quantity', quantity)
+    onChange(coffeeKey, value)
   }
 
   return (
@@ -49,9 +51,10 @@ export function CoffeeCard({
             </Price>
             <Actions $variant={variant}>
               <InputNumberSpinner
-                id={id}
+                id={coffeeKey}
                 steps={1}
                 onChange={handleInputChange}
+                quantity={quantity}
               />
               <Button
                 variant={'shopping-cart'}
@@ -66,9 +69,10 @@ export function CoffeeCard({
             <CoffeeName>{name}</CoffeeName>
             <Actions $variant={variant}>
               <InputNumberSpinner
-                id={id}
+                id={coffeeKey}
                 steps={1}
                 onChange={handleInputChange}
+                quantity={quantity}
               />
               <Button variant={'remove'} onClick={() => console.log('click')} />
             </Actions>

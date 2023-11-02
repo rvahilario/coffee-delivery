@@ -16,6 +16,7 @@ type InputNumberProps = {
   steps: number
   onChange: (value: number) => void
   min?: number
+  quantity: number
 }
 
 export function InputNumberSpinner({
@@ -23,8 +24,9 @@ export function InputNumberSpinner({
   steps,
   onChange,
   min = 0,
+  quantity,
 }: InputNumberProps) {
-  const [value, setValue] = useState<number>(0)
+  const [value, setValue] = useState<number>(quantity)
   const [mouseDownDirection, setMouseDownDirection] = useState<
     'up' | 'down' | undefined
   >(undefined)

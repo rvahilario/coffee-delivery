@@ -51,12 +51,16 @@ function RadioCard({ children, radio }: RadioCardProps) {
   )
 }
 
-export function PaymentOptions() {
+type PaymentOptionsProps = {
+  onChange: (value: PaymentType) => void
+}
+
+export function PaymentOptions({ onChange }: PaymentOptionsProps) {
   const theme = useTheme()
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'paymentOption',
     defaultValue: PAYMENT_OPTIONS[0].value,
-    onChange: (value) => console.log(`${value} selected`),
+    onChange: (value: PaymentType) => onChange(value),
   })
 
   const group = getRootProps()
