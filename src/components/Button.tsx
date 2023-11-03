@@ -1,6 +1,7 @@
 import { ReactNode, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { ShoppingCart, Trash } from '@phosphor-icons/react'
+import { NavLink } from 'react-router-dom'
 
 interface ButtonProps {
   variant?: 'primary' | 'remove' | 'shopping-cart'
@@ -29,9 +30,11 @@ export const Button = ({
 
     case 'shopping-cart':
       return (
-        <ShoppingCartButton onClick={handleClick}>
-          <ShoppingCart size={'1.375rem'} weight="fill" />
-        </ShoppingCartButton>
+        <NavLink to={'/checkout'} className="checkout">
+          <ShoppingCartButton>
+            <ShoppingCart size={'1.375rem'} weight="fill" />
+          </ShoppingCartButton>
+        </NavLink>
       )
 
     default:

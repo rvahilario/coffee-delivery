@@ -13,7 +13,8 @@ export function Header() {
       <StyledNav>
         <div className="location">
           <MapPin size={'1.375rem'} weight="fill" />
-          Rio de Janeiro, RJ
+          {/* TODO: get location from user */}
+          Unknown
         </div>
         <NavLink to={'/checkout'} className="checkout">
           <ShoppingCart size={'1.375rem'} weight="fill" />
