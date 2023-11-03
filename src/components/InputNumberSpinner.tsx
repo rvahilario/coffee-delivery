@@ -1,6 +1,7 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Minus, Plus } from '@phosphor-icons/react'
+import { OrderContext } from '../contexts/OrderContext'
 
 function useInterval(callback: () => void, delay: number | null) {
   useEffect(() => {
@@ -12,29 +13,31 @@ function useInterval(callback: () => void, delay: number | null) {
 }
 
 type InputNumberProps = {
-  id: string
+  coffeeKey: string
   steps: number
   onChange: (value: number) => void
   min?: number
-  quantity: number
 }
 
 export function InputNumberSpinner({
-  id,
+  coffeeKey,
   steps,
   onChange,
   min = 0,
-  quantity,
 }: InputNumberProps) {
-  const [value, setValue] = useState<number>(quantity)
+  const { selectedCoffees } = useContext(OrderContext)
+  const [value, setValue] = useState(selectedCoffees[coffeeKey] || 0)
   const [mouseDownDirection, setMouseDownDirection] = useState<
     'up' | 'down' | undefined
   >(undefined)
 
-  const max = (num: number) => (num < 0 ? 4 : 3)
+  function max(num: number) {
+    return num < 0 ? 4 : 3
+  }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { value } = e.target
+
     setValue((curr) => {
       if (!value) {
         return 0
@@ -46,7 +49,7 @@ export function InputNumberSpinner({
     })
   }
 
-  const handleButtonChange = (direction?: 'up' | 'down') => {
+  function handleButtonChange(direction?: 'up' | 'down') {
     setValue((curr) => {
       let next: number
 
@@ -75,7 +78,10 @@ export function InputNumberSpinner({
   }
 
   useEffect(() => {
-    onChange && onChange(value)
+    if (onChange && (value >= 1 || selectedCoffees[coffeeKey])) {
+      onChange(value)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
   useInterval(
@@ -96,7 +102,7 @@ export function InputNumberSpinner({
         <Minus size={'0.875rem'} weight="bold" />
       </button>
       <input
-        id={id}
+        id={coffeeKey}
         type="number"
         step={steps}
         value={value}

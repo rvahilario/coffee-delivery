@@ -1,30 +1,12 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { CustomInput } from '../components/CustomInput'
 import { PaymentOptions } from '../components/PaymentOptions'
 import { Button } from '../components/Button'
 import { CoffeeCard } from '../components/CoffeeCard'
-import { COFFEE_OBJECT } from '../constants/coffees'
 import { calculateTotal, formatCurrencyValue } from '../utils'
-
-const mockCheckoutData: CheckoutDataType = {
-  completeAddress: {
-    ZIP: '12345',
-    street: '123 Main St',
-    number: '1A',
-    complement: 'Apt 101',
-    neighborhood: 'Coffeeville',
-    city: 'Caffeine City',
-    state: 'CA',
-  },
-  paymentType: 'credit',
-  selectedCoffees: {
-    traditionalEspresso: 2,
-    icedEspresso: 1,
-    hotChocolate: 3,
-  },
-}
+import { OrderContext } from '../contexts/OrderContext'
 
 const DEFAULT_ADDRESS: AddressType = {
   ZIP: '',
@@ -38,16 +20,11 @@ const DEFAULT_ADDRESS: AddressType = {
 
 const DEFAULT_PAYMENT_TYPE: PaymentType = 'credit'
 
-const DEFAULT_SELECTED_COFFEES: SelectedCoffeesType =
-  mockCheckoutData.selectedCoffees
-
 export function Checkout() {
-  const theme = useTheme()
   const [completeAddress, setCompleteAddress] = useState(DEFAULT_ADDRESS)
   const [paymentType, setPaymentType] = useState(DEFAULT_PAYMENT_TYPE)
-  const [selectedCoffees, setSelectedCoffees] = useState(
-    DEFAULT_SELECTED_COFFEES,
-  )
+  const theme = useTheme()
+  const { selectedCoffees } = useContext(OrderContext)
   const { totalItems, deliveryTax, total } = calculateTotal(selectedCoffees)
 
   function handleAddressDataChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -61,13 +38,6 @@ export function Checkout() {
 
   function handlePaymentTypeChange(paymentType: PaymentType) {
     setPaymentType(paymentType)
-  }
-
-  function handleCoffeeQuantityChange(coffeeKey: string, quantity: number) {
-    setSelectedCoffees((prevState) => ({
-      ...prevState,
-      [coffeeKey]: quantity,
-    }))
   }
 
   function onConfirmOrder() {
@@ -164,18 +134,10 @@ export function Checkout() {
       <SubContainer>
         <h2>Selected Coffees</h2>
         <FormDiv className="total-form-div">
-          {Object.entries(selectedCoffees).map(([coffeeKey, quantity]) => {
-            const coffee = COFFEE_OBJECT[coffeeKey]
-
+          {Object.keys(selectedCoffees).map((coffeeKey) => {
             return (
               <Fragment key={coffeeKey}>
-                <CoffeeCard
-                  coffeeKey={coffeeKey}
-                  coffee={coffee}
-                  quantity={quantity}
-                  onChange={handleCoffeeQuantityChange}
-                  variant="horizontal"
-                />
+                <CoffeeCard coffeeKey={coffeeKey} variant="horizontal" />
                 <hr />
               </Fragment>
             )

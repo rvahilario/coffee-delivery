@@ -72,7 +72,7 @@ export function Home() {
         <h2>Our coffees</h2>
         <ShopGrid>
           {Object.entries(COFFEE_OBJECT).map(([key, coffee]) => (
-            <CoffeeCard key={key} id={key} coffee={coffee} />
+            <CoffeeCard key={key} coffeeKey={key} coffee={coffee} />
           ))}
         </ShopGrid>
       </ShopDiv>

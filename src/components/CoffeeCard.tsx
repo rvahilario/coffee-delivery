@@ -1,29 +1,38 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { formatCurrencyValue } from '../utils'
 import { InputNumberSpinner } from './InputNumberSpinner'
 import { Button } from './Button'
+import { OrderContext } from '../contexts/OrderContext'
+import { COFFEE_OBJECT } from '../constants/coffees'
 
 interface CoffeeCardProps {
   coffeeKey: string
-  coffee: CoffeeType
+  coffee?: CoffeeType
   variant?: 'vertical' | 'horizontal'
-  quantity: number
-  onChange: (coffeeKey: string, quantity: number) => void
 }
 
 export function CoffeeCard({
   coffeeKey,
-  coffee,
+  coffee = COFFEE_OBJECT[coffeeKey],
   variant = 'vertical',
-  onChange,
-  quantity,
 }: CoffeeCardProps) {
   const { name, description, price, tags, imageSrc } = coffee
   const isVertical = variant === 'vertical'
+  const { handleAddCoffee, handleRemoveCoffee } = useContext(OrderContext)
 
   function handleInputChange(value: number) {
-    onChange(coffeeKey, value)
+    if (isVertical) {
+      value === 0
+        ? handleRemoveCoffee(coffeeKey)
+        : handleAddCoffee(coffeeKey, value)
+    } else {
+      handleAddCoffee(coffeeKey, value)
+    }
+  }
+
+  function onRemoveClick() {
+    handleRemoveCoffee(coffeeKey)
   }
 
   return (
@@ -51,10 +60,9 @@ export function CoffeeCard({
             </Price>
             <Actions $variant={variant}>
               <InputNumberSpinner
-                id={coffeeKey}
+                coffeeKey={coffeeKey}
                 steps={1}
                 onChange={handleInputChange}
-                quantity={quantity}
               />
               <Button
                 variant={'shopping-cart'}
@@ -69,12 +77,11 @@ export function CoffeeCard({
             <CoffeeName>{name}</CoffeeName>
             <Actions $variant={variant}>
               <InputNumberSpinner
-                id={coffeeKey}
+                coffeeKey={coffeeKey}
                 steps={1}
                 onChange={handleInputChange}
-                quantity={quantity}
               />
-              <Button variant={'remove'} onClick={() => console.log('click')} />
+              <Button variant={'remove'} onClick={onRemoveClick} />
             </Actions>
           </CardContent>
           <Price $variant={variant}>
