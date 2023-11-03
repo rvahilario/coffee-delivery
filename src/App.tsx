@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { ChakraProvider } from '@chakra-ui/react'
+import { OrderContextProvider } from './contexts/OrderContext'
 
 export function App() {
   return (
@@ -12,7 +13,9 @@ export function App() {
       <GlobalStyle />
       <ChakraProvider theme={defaultTheme}>
         <BrowserRouter>
-          <Router />
+          <OrderContextProvider>
+            <Router />
+          </OrderContextProvider>
         </BrowserRouter>
       </ChakraProvider>
     </ThemeProvider>
