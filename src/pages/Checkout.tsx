@@ -40,7 +40,7 @@ export function Checkout() {
     setPaymentType(paymentType)
   }
 
-  function onConfirmOrder() {
+  function handleSubmitOrder() {
     const checkoutData: CheckoutDataType = {
       completeAddress,
       paymentType,
@@ -154,7 +154,7 @@ export function Checkout() {
               <span>${formatCurrencyValue(total)}</span>
             </p>
           </TotalDiv>
-          <Button variant="primary" onClick={onConfirmOrder}>
+          <Button variant="primary" onClick={handleSubmitOrder}>
             Confirm order
           </Button>
         </FormDiv>
