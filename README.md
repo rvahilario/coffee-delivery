@@ -1,27 +1,90 @@
-# React + TypeScript + Vite
+# 🚧🚧🚧 UNDER CONSTRUCTION 🚧🚧🚧
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Coffee Delivery ☕
 
-Currently, two official plugins are available:
+<!-- ![Coffee Delivery Logo](https://github.com/rvahilario/hilaricord/blob/main/public/frameGOWlogo.png) -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Coffee Delivery is a project aimed at learning the use of context in React applications. This project was developed as a part of a study on React context and state management.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [About](#about)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Requirements](#requirements)
+- [Getting Started](#getting-started)
+- [License](#license)
 
-- Configure the top-level `parserOptions` property like this:
+## 🎯 About
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Coffee Delivery is a simple web application that allows users to order coffee and have it delivered to their doorstep. The main focus of this project is to learn how to use React context for state management and application-wide data sharing. It was built as a study project to improve skills in React and state management techniques.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## ✨ Features
+
+In this challenge, you will develop an application to manage a fictitious coffee shop's shopping cart with the following features:
+
+- ✔ List of available products (coffees) for purchase
+- ✔ Add a specific quantity of items to the cart
+- ✔ Increase or remove the quantity of items in the cart
+- ✔ User address form
+<!-- - ✔ Display the total number of items in the cart in the Header -->
+- ✔ Display the total value of the sum of items in the cart multiplied by the unit price
+
+## 🚀 Technologies
+
+The following technologies and libraries were used in this project:
+
+- React
+<!-- - Next.js -->
+<!-- - Auth0 for user authentication -->
+<!-- - Supabase for storing messages -->
+- Styled-Components for styling
+<!-- - React Icons for icon components -->
+<!-- - And more... -->
+
+## ✅ Requirements
+
+Before getting started with Coffee Delivery, make sure you have the following prerequisites installed on your machine:
+
+- [Git](https://git-scm.com)
+- [Node.js](https://nodejs.org/en/)
+
+## 🏁 Getting Started
+
+To get Coffee Delivery up and running on your local machine, follow these steps:
+
+1. Clone this project:
+
+   ```bash
+   $ git clone https://github.com/rvahilario/coffee-delivery
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   $ cd coffee-delivery
+   ```
+
+3. Install project dependencies:
+
+   ```bash
+   $ npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   $ npm run dev
+   ```
+
+The Coffee Delivery application will be available at [http://localhost:5173](http://localhost:5173).
+
+## 📝 License
+
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE.md) file.
+
+Made with ☕ by [Renan Hilário](https://github.com/rvahilario)
+
+&#xa0;
+
+☝️ [Back to top](#coffee-delivery) ☝️
