@@ -1,6 +1,6 @@
 # 🚧🚧🚧 UNDER CONSTRUCTION 🚧🚧🚧
 
-# Coffee Delivery ☕
+# ☕ Coffee Delivery ☕
 
 <!-- ![Coffee Delivery Logo](https://github.com/rvahilario/hilaricord/blob/main/public/frameGOWlogo.png) -->
 
@@ -8,12 +8,24 @@ Coffee Delivery is a project aimed at learning the use of context in React appli
 
 ## Table of Contents
 
-- [About](#about)
+<!-- - [About](#about)
 - [Features](#features)
 - [Technologies](#technologies)
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
-- [License](#license)
+- [License](#license) -->
+
+<p align="center">
+  <a href="#about">About</a> &#xa0; | &#xa0;
+  <a href="#features">Features</a> &#xa0; | &#xa0;
+  <a href="#technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#getting-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#license">License</a> &#xa0; | &#xa0;
+  <a href="https://github.com/rvahilario" target="_blank">Author</a>
+</p>
+
+&#xa0;
 
 ## 🎯 About
 
@@ -35,12 +47,11 @@ In this challenge, you will develop an application to manage a fictitious coffee
 The following technologies and libraries were used in this project:
 
 - React
-<!-- - Next.js -->
-<!-- - Auth0 for user authentication -->
-<!-- - Supabase for storing messages -->
-- Styled-Components for styling
-<!-- - React Icons for icon components -->
-<!-- - And more... -->
+- Vite
+- Typescript
+- Chakra UI
+- React Router Dom
+- Styled Components
 
 ## ✅ Requirements
 
